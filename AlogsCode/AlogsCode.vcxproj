@@ -143,6 +143,7 @@
     <ClCompile Include="A_agronom.cpp" />
     <ClCompile Include="D_Chaos.cpp" />
     <ClCompile Include="E_Cows.cpp" />
+    <ClCompile Include="F_Number.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

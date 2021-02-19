@@ -1,4 +1,4 @@
-
+/*
 #include <iostream>
 #include <algorithm>
 
@@ -52,3 +52,4 @@ int main()
     delete[] arr;
     return 0;
 }
+*/
