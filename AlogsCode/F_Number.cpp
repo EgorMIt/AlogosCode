@@ -6,13 +6,13 @@
 using namespace std;
 
 string findMaxNumber(const vector<string> arr) {
-    cout << "Запущен поиск максимума в: " << endl;
+    /*cout << "Запущен поиск максимума в: " << endl;
     for (int i = 0; i < arr.size(); i++)
     {
         cout << arr[i] << " ";
     }
 
-    cout << endl;
+    cout << endl;*/
     if (arr.size() == 1)
        return arr[0];
 
@@ -28,22 +28,25 @@ string findMaxNumber(const vector<string> arr) {
             if (k != i)
             {
                 tmp.push_back(arr[k]);
-                cout << "В tmp добавлен arr[k]: " << arr[k] << endl;
+                //cout << "В tmp добавлен arr[k]: " << arr[k] << endl;
             }
         }
         
-        string nxt = arr[i] + findMaxNumber(tmp);
+        string a = findMaxNumber(tmp);
+        string nxt = arr[i] + a;
         combos.push_back(nxt);
-        cout << "В comobs добавлен nxt: " << nxt << endl;
+        //cout << "В comobs добавлен nxt: " << nxt  << " => " << arr[i] << " + " << a << endl;
+        
     }
     
     sort(combos.begin(), combos.end());
+    /*cout << "Массив Combos: " << endl;
     for (int i = 0; i < combos.size(); i++)
     {
         cout << combos[i] << " ";
     }
     cout << endl;
-    cout << "Максимум это: " << combos[combos.size() - 1] << endl;
+    cout << "Максимум это: " << combos[combos.size() - 1] << endl;*/
     return combos[combos.size() - 1];
 }
 
