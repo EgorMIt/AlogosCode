@@ -141,6 +141,7 @@
   <ItemGroup>
     <ClCompile Include="1005.cpp" />
     <ClCompile Include="A_agronom.cpp" />
+    <ClCompile Include="B_Zoo.cpp" />
     <ClCompile Include="D_Chaos.cpp" />
     <ClCompile Include="E_Cows.cpp" />
     <ClCompile Include="F_Number.cpp" />
