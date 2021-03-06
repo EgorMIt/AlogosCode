@@ -1,3 +1,4 @@
+/*
 #include <iostream>
 #include <vector>
 #include <string>
@@ -12,7 +13,7 @@ string findMaxNumber(const vector<string> arr) {
         cout << arr[i] << " ";
     }
 
-    cout << endl;*/
+    cout << endl;
     if (arr.size() == 1)
        return arr[0];
 
@@ -46,7 +47,7 @@ string findMaxNumber(const vector<string> arr) {
         cout << combos[i] << " ";
     }
     cout << endl;
-    cout << "Максимум это: " << combos[combos.size() - 1] << endl;*/
+    cout << "Максимум это: " << combos[combos.size() - 1] << endl;
     return combos[combos.size() - 1];
 }
 
@@ -70,4 +71,4 @@ int main()
 
     cout << res << endl;
     return 0;
-}
+}*/

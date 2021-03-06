@@ -144,6 +144,7 @@
     <ClCompile Include="D_Chaos.cpp" />
     <ClCompile Include="E_Cows.cpp" />
     <ClCompile Include="F_Number.cpp" />
+    <ClCompile Include="I_Cars.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
