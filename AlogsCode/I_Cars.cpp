@@ -1,4 +1,4 @@
-
+/*
 #include <iostream>
 #include <algorithm>
 
@@ -43,7 +43,7 @@ int main()
         {
             cout << floor[m] << " ";
         }
-        cout << endl;*/
+        cout << endl;
 
         min = 500000;
         next = false;
@@ -79,4 +79,4 @@ int main()
     //delete[] cars;
     //delete[] floor;
     return 0;
-}
+}*/
