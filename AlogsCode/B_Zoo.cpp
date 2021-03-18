@@ -1,6 +1,4 @@
-/*#include <cmath>// для abs
-#include <cstdlib>// для malloc
-#include <string>
+/*#include <string>
 #include <stack>
 #include <iostream>
 
@@ -10,26 +8,25 @@ int main() {
     string input;
     cin >> input;
 
-    stack<int> indexStack;     
+    stack<int> indexStack;
 
-    int* ind_animals_traps = new int[input.size()]; 
+    int n = input.size();
 
-   
-    int* result = new int[input.size()/2];
+    int* animalsAndTraps = new int[n];
 
-    int last_index = 0;
-    int last_animal = 0;
-    int last_trap = 0;
+    int* result = new int[n / 2];
 
-    for (int i = 0; i < input.size(); i++) {
-        ind_animals_traps[i] = 0;
+    int index = 0, animal = 0, trap = 0;
+
+    for (int i = 0; i < n; i++) {
+        animalsAndTraps[i] = 0;
         if (input[i] >= 'A' && input[i] <= 'Z') {
-            ind_animals_traps[i] = last_trap;
-            last_trap++;
+            animalsAndTraps[i] = trap;
+            trap++;
         }
         else if (input[i] >= 'a' && input[i] <= 'z') {
-            ind_animals_traps[i] = last_animal;
-            last_animal++;
+            animalsAndTraps[i] = animal;
+            animal++;
         }
     }
 
@@ -38,33 +35,37 @@ int main() {
         cout << ind_animals_traps[i] << " ";
     }
     cout << endl;
-    
-    for (int i = 0; i < input.size(); i++) {
-        if (i == 0 || indexStack.size() == 0) {
+
+    for (int i = 0; i < n; i++) {
+        if (i == 0 || indexStack.empty()) {
             indexStack.push(i);
-            last_index = i;
+            index = i;
         }
         else {
-            if (abs(input[i] - input[last_index]) == 32) {
+            if (input[i] - input[index] == 32 || input[index] - input[i] == 32) {
                 indexStack.pop();
-                if (input[last_index] >= 'A' && input[last_index] <= 'Z') {
-                    result[ind_animals_traps[last_index]] = ind_animals_traps[i];
+                if (input[index] >= 'A' && input[index] <= 'Z') {
+                    int k = animalsAndTraps[index];
+                    result[animalsAndTraps[index]] = animalsAndTraps[i];
+                    k++;
                 }
-                else if (input[last_index] >= 'a' && input[last_index] <= 'z') {
-                    result[ind_animals_traps[i]] = ind_animals_traps[last_index];
+                else if (input[index] >= 'a' && input[index] <= 'z') {
+                    int k = animalsAndTraps[i];
+                    result[animalsAndTraps[i]] = animalsAndTraps[index];
+                    k++;
                 }
-                if (indexStack.size() != 0)
-                    last_index = indexStack.top();
+                if (!indexStack.empty())
+                    index = indexStack.top();
             }
             else {
-                last_index = i;
+                index = i;
                 indexStack.push(i);
             }
         }
     }
 
 
-    if (indexStack.size() == 0) {
+    if (indexStack.empty()) {
         cout << "Possible" << endl;
         for (int i = 0; i < input.length() / 2; i++)
             cout << result[i] + 1 << " ";
@@ -72,5 +73,9 @@ int main() {
     else {
         cout << "Impossible";
     }
+
+    delete[] animalsAndTraps;
+    delete[] result;
+
     return 0;
 }*/

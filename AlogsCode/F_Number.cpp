@@ -1,78 +1,51 @@
+#define _CRT_SECURE_NO_WARNINGS
 
-/*
 #include <iostream>
-=======
-/*#include <iostream>
->>>>>>> 4ad0afbdcb171daf0692e58bbba74a58be729ece
+#include <fstream>
 #include <vector>
 #include <string>
 #include <algorithm>
+#include <stdio.h>
 
 using namespace std;
 
-string findMaxNumber(const vector<string> arr) {
-    /*cout << "Запущен поиск максимума в: " << endl;
-    for (int i = 0; i < arr.size(); i++)
-    {
-        cout << arr[i] << " ";
-    }
-
-    cout << endl;
-    if (arr.size() == 1)
-       return arr[0];
-
-    vector<string> combos;
-
-    int size = arr.size();
-    for (int i = 0; i < size; i++) {
-        
-        vector<string> tmp;
-
-        for (int k = 0; k < size; k++)
-        {
-            if (k != i)
-            {
-                tmp.push_back(arr[k]);
-                //cout << "В tmp добавлен arr[k]: " << arr[k] << endl;
-            }
-        }
-        
-        string a = findMaxNumber(tmp);
-        string nxt = arr[i] + a;
-        combos.push_back(nxt);
-        //cout << "В comobs добавлен nxt: " << nxt  << " => " << arr[i] << " + " << a << endl;
-        
-    }
-    
-    sort(combos.begin(), combos.end());
-    /*cout << "Массив Combos: " << endl;
-    for (int i = 0; i < combos.size(); i++)
-    {
-        cout << combos[i] << " ";
-    }
-    cout << endl;
-    cout << "Максимум это: " << combos[combos.size() - 1] << endl;
-    return combos[combos.size() - 1];
-}
 
 int main()
 {
     setlocale(LC_ALL, "Russian");
 
-    vector<string> arr;
+    string str[10000];
 
-    string buffer = "";
-      
-    do {
-        getline(cin, buffer);
-        if (buffer.size() > 0) {
-            // Добавление элемента в конец вектора
-            arr.push_back(buffer);
+    string temp;
+    int index = 0;
+    while (cin >> temp)
+    {
+
+        /*if (stoi(temp) == 0)
+        {
+            break;
+        }*/
+        str[index] = temp;
+        index++;
+    }
+
+    int size = index;
+
+
+    for (int i = 0; i < size - 1; i++) {
+        for (int j = 0; j < size - i - 1; j++) {
+            if (str[j] + str[j + 1] < str[j + 1] + str[j]) {
+
+                temp = str[j];
+                str[j] = str[j + 1];
+                str[j + 1] = temp;
+            }
         }
-    } while (buffer != "");
+    }
+    // Вывод отсортированного массива на экран
+    for (int i = 0; i < size; i++) {
+        cout << str[i];
+    }
 
-    string res = findMaxNumber(arr);
-
-    cout << res << endl;
     return 0;
-}*/
+}
