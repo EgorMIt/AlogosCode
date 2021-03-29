@@ -146,6 +146,7 @@
     <ClCompile Include="D_Chaos.cpp" />
     <ClCompile Include="E_Cows.cpp" />
     <ClCompile Include="F_Number.cpp" />
+    <ClCompile Include="G_Castle.cpp" />
     <ClCompile Include="H_Shop.cpp" />
     <ClCompile Include="I_Cars.cpp" />
   </ItemGroup>
