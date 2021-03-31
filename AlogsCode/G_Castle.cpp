@@ -1,4 +1,4 @@
-#define _CRT_SECURE_NO_WARNINGS
+/*#define _CRT_SECURE_NO_WARNINGS
 
 #include <iostream>
 #include <fstream>
@@ -51,13 +51,13 @@ int main()
             }
         }
     }
-  
+
     /*for (int i = 0; i < 26; i++)
     {
         cout << (char)(arr[i][0]+shift) << " " << arr[i][1] << " " << arr[i][2] << endl;
-    }*/
-    
-    int size = n, i=0;
+    }
+
+    int size = n, i = 0;
     bool flag = false;
     for (int j = 0; j < 26; j++)
     {
@@ -93,4 +93,4 @@ int main()
     }
     cout << endl;
     return 0;
-}
+}*/
