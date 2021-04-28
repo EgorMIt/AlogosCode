@@ -1,4 +1,4 @@
-#define _CRT_SECURE_NO_WARNINGS
+/*#define _CRT_SECURE_NO_WARNINGS
 
 #include <iostream>
 #include <algorithm>
@@ -71,7 +71,7 @@ int main()
         {
             cout << numbers2[j] << " ";
         }
-        cout << " <<" << endl;*/
+        cout << " <<" << endl;
     }
     return 0;
-}
+}*/

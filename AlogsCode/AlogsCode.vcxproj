@@ -150,6 +150,7 @@
     <ClCompile Include="H_Shop.cpp" />
     <ClCompile Include="I_Cars.cpp" />
     <ClCompile Include="J_Goblins.cpp" />
+    <ClCompile Include="K_Manager.cpp" />
     <ClCompile Include="L_Minimum.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

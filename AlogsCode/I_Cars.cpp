@@ -1,82 +1,72 @@
-/*
+/*#define _CRT_SECURE_NO_WARNINGS
+
 #include <iostream>
 #include <algorithm>
+#include <set>
 
 using namespace std;
 
 int main()
 {
     setlocale(LC_ALL, "Russian");
-    int n, p, k, count = 0, min, chng, i, j, m;
+    int n, p, k, count = 0, min, i, j;
     bool next = false;
 
     cin >> n;
     cin >> k;
     cin >> p;
 
-    int* cars = new int[n];
+    int* cars = new int[n + 1];
     int* arr = new int[p];
-    int* floor = new int[k];
 
-    for (i = 0; i < n; i++)    
-        cars[i] = 0;
+    int* queue = new int[p];
+
+    set<int> floor;
+
+    for (i = 0; i < p; i++)
+        queue[i] = 1000000;
+
+    for (i = 1; i < n + 1; i++)
+        cars[i] = -1;
     
+
+    for (i = 0; i < p; i++)    
+        cin >> arr[i];       
 
     for (i = 0; i < p; i++)
     {
-        cin >> arr[i];
-        cars[arr[i]]++;
+        if (cars[arr[i]] != -1)
+            queue[cars[arr[i]]] = i;
+
+        cars[arr[i]] = i;
     }
 
-    for (i = 0; i < k; i++)
-    {
-        floor[i] = arr[i];
-        count++;
-        cars[floor[i]]--;
-    }
+   
         
-
-    for (i = k; i < p; i++)
+    for (i = 0; i < p; i++)
     {
-        /*cout << "На полу сейчас машинки: " << endl;
-        for (m = 0; m < k; m++)
+        if (!floor.count(i))
         {
-            cout << floor[m] << " ";
-        }
-        cout << endl;
-
-        min = 500000;
-        next = false;
-
-        //cout << "Ищем на полу машинку " << arr[i] << endl;
-        for (j = 0; j < k; j++)
-        {
-            if (floor[j] == arr[i])            
-                next = true;                
-                        
-        }
-        if (next == false)
-        {
-            for (j = 0; j < k; j++)
+            //cout << "Есть машинка с индексом " << i << endl;
+            if (floor.size() < k)
             {
-                if (cars[floor[j]] < min)
-                {
-                    min = cars[floor[j]];
-                    chng = j;
-                }
+                floor.insert(queue[i]);
             }
-
-            floor[chng] = arr[i];
+            else {
+                floor.erase(*floor.rbegin());
+                floor.insert(queue[i]);
+                //cout << "Убрали " << *floor.rbegin() << " вставили " << queue[i] << endl;
+            }
             count++;
-            cars[floor[chng]]--;
         }
-                    
+        else {
+            floor.erase(i);
+            floor.insert(queue[i]);
+            //cout << "Убрали индекс" << i << " вставили " << queue[i] << endl;
+        }
     }
 
-    cout << count << endl;
+    cout << count << endl;  
     
-    //delete[] arr;
-    //delete[] cars;
-    //delete[] floor;
     return 0;
 }*/
