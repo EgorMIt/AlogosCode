@@ -1,105 +1,139 @@
 #define _CRT_SECURE_NO_WARNINGS
 
 #include <iostream>
-#include <algorithm>
-#include <stdio.h>
-#include <deque>
-#include <fstream>
-#include <string>
+#include <vector>
+#include <set>
+#include <map>
 
 using namespace std;
 
+struct MyStructBlock
+{
+	long size;
+	long start;
+};
+
+struct MyStructComparator
+{
+	bool operator() (const struct MyStructBlock& x, const struct MyStructBlock& y) const {
+		bool ans;
+		if (x.size > y.size)
+			ans = true;
+		else ans = false;
+
+		return ans;
+	}
+};
+
+void CleaningData(int size, int start, multiset<struct MyStructBlock, MyStructComparator>& free) {
+	auto temp = free.equal_range({ size, start });
+	for (auto iterator = temp.first; iterator != temp.second; iterator++) {
+		if (iterator->start == start) {
+			free.erase(iterator);
+			break;
+		}
+	}
+}
+
 int main()
 {
-    setlocale(LC_ALL, "Russian");
+	int memory, n, request = 0;
 
-    int n, m, number, size1 = 0, size2 = 0, middle, count, tmp;
-    bool rFlag = false;
-    string input;
+	map<int, int> mapStraight;
+	map<int, int> mapReverse;
 
-    cin >> n;
-    cin >> m;
+	multiset<struct MyStructBlock, MyStructComparator> free;
 
-    int* mem = new int[n];
-    for (int i = 0; i < n; i++)
-    {
-        mem[i] = 0;
-    }
-    
-    int* req = new int[m];
-    int* req2 = new int[m];
+	vector<int> history;
+	vector<int> notFree;
 
-    for (int i = 1; i <= m; i++)
-    {
-        cin >> number;
-        req[i - 1] = number;
-        rFlag = false;
-        if (number >= 0)
-        {
-            cout << "Ищем свободное место" << endl;
-            for (int j = 0; j < n; j++)
-            {
-                cout << "Рассматриваем эдемент - " << j << endl;
-                if (mem[j] == 0)
-                {
-                    tmp = j;
-                    count = 0;
-                    while (mem[j] == 0 && j < n)
-                    {
-                        count++;
-                        j++;
-                    }
+	const int space = 2;
 
-                    if (count > 0)
-                        j--;
+	cin >> memory;
+	cin >> n;
 
-                    cout << "Насчитали нулей - " << count << endl;
-                    if (count >= number)
-                    {
-                        cout << "Подходит, запомнили первую ячейку - " << tmp << endl;
-                        rFlag = true;
-                        break;
-                    }
-                }
-            }
+	free.insert({ memory,0 });
 
-            if (rFlag)
-            {
-                for (int j = tmp; j < tmp + number; j++)
-                {
-                    mem[j] = number;
-                }
-                req2[i - 1] = tmp;
-                req[i - 1] = number;
-                cout << "Номер команды i - " << i << " Команда - " << req[i - 1] << " Первая ячейка - " << req2[i - 1] << endl;
-                cout << (tmp + 1) << endl;
-            }
-            else
-            {
-                cout << -1 << endl;
-                cout << "Не можем вместить" << endl;
-            }
-        }
-        else if (number < 0)
-        {
-            number = abs(number);
-            tmp = req[number - 1];
-            int index = req2[number - 1];
+	mapStraight[0] = memory - 1;
+	mapReverse[memory - 1] = 1;
 
-            cout << "Удаляем каманду номер - " << tmp << " начиная с ячейки - " << index << endl;
-            for (int j = index; j < index + tmp; j++)
-            {
-                mem[j] = 0;
-            }
-            
-        }
+	for (int i = 0; i < n; ++i)
+	{
+		cin >> request;
+		history.push_back(request);
+		if (request > 0) {
+			if (!free.empty() && free.begin()->size >= request) {
+				struct MyStructBlock smallest = *free.begin();
 
-        cout << "Память сейчас:" << endl;
-        for (int j = 0; j < n; j++)
-        {
-            cout << mem[j];
-        }
-        cout << endl;
-    }
-    return 0;
+				notFree.push_back(smallest.start);
+
+				struct MyStructBlock new_block = smallest;
+				new_block.size = new_block.size - request;
+				new_block.start = new_block.start + request;
+
+				cout << smallest.start + 1 << endl;
+
+				free.erase(free.begin());
+				mapReverse.erase(mapStraight[smallest.start]);
+				mapStraight.erase(smallest.start);
+
+				if (new_block.size != 0) {
+					free.insert(new_block);
+					mapStraight[new_block.start] = new_block.start + new_block.size - 1;
+					mapReverse[new_block.start + new_block.size - 1] = new_block.start + 1;
+				}
+			}
+			else {
+				notFree.push_back(-1);
+				cout << -1 << endl;
+			}
+		}
+		else {
+			notFree.push_back(-1);
+			request = -request;
+			int i = request + 1 - space;
+
+			int startPoint = notFree[i];
+
+			if (startPoint == -1) {
+				continue;
+			}
+
+			notFree[i] = -1;
+
+			int cleaningSize = history[i];
+			int endPoint = startPoint + cleaningSize - 1;
+
+			free.insert({ cleaningSize, startPoint });
+			mapStraight[startPoint] = endPoint;
+			mapReverse[endPoint] = startPoint + 1;
+
+			if (mapReverse[startPoint - 1] > 0 || mapReverse[startPoint - 1] < 0) {
+				CleaningData(startPoint - mapReverse[startPoint - 1] + 1, mapReverse[startPoint - 1] - 1, free);
+				CleaningData(mapStraight[startPoint] - mapReverse[startPoint - 1] + space, mapReverse[startPoint - 1] - 1, free);
+
+				free.insert({ mapStraight[startPoint] - mapReverse[startPoint - 1] + space, mapReverse[startPoint - 1] - 1 });
+
+				mapStraight[mapReverse[startPoint - 1] - 1] = mapStraight[startPoint];
+				mapReverse[mapStraight[startPoint]] = mapReverse[startPoint - 1];
+				mapStraight.erase(startPoint);
+				mapReverse.erase(startPoint - 1);
+			}
+
+			if (mapStraight[endPoint + 1] > 0 || mapStraight[endPoint + 1] < 0) {
+				endPoint++;
+				CleaningData(endPoint - mapReverse[endPoint-1] + space, mapReverse[endPoint-1] - space, free);
+				CleaningData(mapStraight[endPoint] - endPoint - 1, mapStraight[endPoint], free);
+
+				free.insert({ mapStraight[endPoint] - mapReverse[endPoint-1] + space,mapReverse[endPoint-1] - 1 });
+
+				mapStraight[mapReverse[endPoint-1] - 1] = mapStraight[endPoint];
+				mapReverse[mapStraight[endPoint]] = mapReverse[endPoint-1];
+				mapStraight.erase(endPoint);
+				endPoint--;
+				mapReverse.erase(endPoint);
+			}
+		}		
+	}
+	return 0;
 }
