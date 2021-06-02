@@ -155,6 +155,7 @@
     <ClCompile Include="M_Civilisation.cpp" />
     <ClCompile Include="M_Civilisation2.cpp" />
     <ClCompile Include="N_Pigs.cpp" />
+    <ClCompile Include="O_Cheating.cpp" />
     <ClCompile Include="P_Avia.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

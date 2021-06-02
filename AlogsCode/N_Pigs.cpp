@@ -1,11 +1,6 @@
-#define _CRT_SECURE_NO_WARNINGS
+/*#define _CRT_SECURE_NO_WARNINGS
 
 #include <iostream>
-#include <vector>
-#include <set>
-#include <map>
-#include <queue>
-#include <cassert>
 #include <stdio.h>
 
 using namespace std;
@@ -15,21 +10,28 @@ int* w;
 int* f;
 int circle = 0;
 
-void dfs(int index, int start)
+void dfs(int index)
 {
-	cout << "Рассматриваем вершину - " << index << endl;
-	if (f[index] == -1)
-	{
-		cout << "Вершина свободна - помечаем началом цикла start - " << start << endl;
-		f[index] = start;
-		int tmp = w[index];
-		cout << "Переходим в вершину - " << tmp << endl;
-		dfs(tmp, start);
+	//cout << "Рассматриваем вершину - " << index << endl;
+	if (f[index] == 2)
+	{		
+		return;
 	}
-	else if (f[index] == start)
+	else if (f[index] == 0)
 	{
-		cout << "Уже были здесь, инкременируем счетчик" << endl;
+		f[index] = 1;
+		int tmp = w[index];
+		//cout << "Переходим в вершину - " << tmp << endl;
+		dfs(tmp);
+		if (f[index] != 2)
+			f[index] = 0;
+	}
+	else if (f[index] == 1)
+	{
+		f[index] = 2;
 		circle++;
+		//cout << "Замкнули цикл, инкрементим" << endl;
+		return;
 	}
 }
 
@@ -46,20 +48,16 @@ int main()
 		int tmp;
 		cin >> tmp;
 		w[i] = tmp - 1;
-		f[i] = -1;
+		f[i] = 0;
 	}
 
 	for (int i = 0; i < n; i++)
 	{
-		if (w[i] == i)
-			circle++;
-		else
-		{
-			cout << "Обход с вершины - " << i << endl;
-			dfs(i, i);
-		}
+		cout << "Обход с вершины - " << i << endl;
+		dfs(i);
+		
 	}
 
 	cout << circle << endl;
 	return 0;
-}
+}*/

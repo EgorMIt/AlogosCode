@@ -1,4 +1,4 @@
-/*#define _CRT_SECURE_NO_WARNINGS
+#define _CRT_SECURE_NO_WARNINGS
 
 #include <iostream>
 #include <vector>
@@ -41,8 +41,8 @@ int main()
 	vector<vector<bool>> isFinal(1 + sizeI + 1, vector<bool>(1 + sizeJ + 1, false));
 	priority_queue<Item> pq;
 
-	for (int i = 0; i < sizeI; i++) {
-		for (int j = 0; j < sizeJ; j++) {
+	for (int i = 1; i <= sizeI; i++) {
+		for (int j = 1; j <= sizeJ; j++) {
 			scanf(" %c", &a[i][j]);
 		}
 	}
@@ -73,7 +73,7 @@ int main()
 				if (di * di + dj * dj == 1) {
 					int ni = cur.i + di;
 					int nj = cur.j + dj;
-					int nd;
+					int nd = 0;
 					if (isFinal[ni][nj]) {
 						continue;
 					}
@@ -99,4 +99,4 @@ int main()
 	cout << -1 << endl;	
 
 	return 0;
-}*/
+}
